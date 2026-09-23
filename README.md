@@ -1,264 +1,217 @@
-```markdown
-# Category Intelligence — Retail Product Performance EDA
+# 📊 Category Intelligence — Retail Product Performance EDA
 
-## Overview
+### Calibo AI Academy | Phase 1 — Mini Use Case 01
 
-Category Intelligence is a retail analytics project designed to help a Category Manager understand product and category performance before a supplier review.
+**Category Intelligence — Retail Product Performance EDA**
 
-The project analyzes six months of retail transaction data from January 2026 to June 2026 across multiple stores, cities, products, and categories.
+> An exploratory data analysis project designed to help a Category Manager understand category-level performance, product-level performance, discount patterns, and sales timing before a quarterly supplier review.
 
-The analysis focuses on identifying:
+---
 
-- Categories with positive or negative momentum
+## 📌 Table of Contents
+
+- [Project Overview](#-project-overview)
+- [Business Context](#-business-context)
+- [Problem Statement](#-problem-statement)
+- [Business Objective](#-business-objective)
+- [CBIM Problem Canvas](#-cbim-problem-canvas)
+- [Key Business Questions](#-key-business-questions)
+- [Dataset Overview](#-dataset-overview)
+- [Dataset Structure](#-dataset-structure)
+- [Data Dictionary](#-data-dictionary)
+- [Data Quality](#-data-quality)
+- [Technology Stack](#-technology-stack)
+- [Project Architecture](#-project-architecture)
+- [Project Workflow](#-project-workflow)
+- [Exploratory Data Analysis](#-exploratory-data-analysis)
+- [Analysis 1 — Category Revenue Trend](#-analysis-1--category-revenue-trend)
+- [Analysis 2 — Product Performance](#-analysis-2--product-performance)
+- [Analysis 3 — Discount Effectiveness](#-analysis-3--discount-effectiveness)
+- [Analysis 4 — Day-of-Week Analysis](#-analysis-4--day-of-week-analysis)
+- [Analysis 5 — Monthly Sales Pattern](#-analysis-5--monthly-sales-pattern)
+- [Key Findings](#-key-findings)
+- [Category Recommendation](#-category-recommendation)
+- [Action Plan](#-action-plan)
+- [Risks and Limitations](#-risks-and-limitations)
+- [Business Interpretation](#-business-interpretation)
+- [Visualizations](#-visualizations)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [How to Run](#-how-to-run)
+- [Requirements](#-requirements)
+- [Expected Output](#-expected-output)
+- [Deliverables](#-deliverables)
+- [Team](#-team)
+- [Future Improvements](#-future-improvements)
+- [Conclusion](#-conclusion)
+
+---
+
+# 📌 Project Overview
+
+**Category Intelligence — Retail Product Performance EDA** is a retail analytics project developed as part of the **Calibo AI Academy — Phase 1 Mini Use Case 01**.
+
+The project uses transaction-level retail sales data covering **six months from January to June 2026**.
+
+The objective is to transform raw retail transaction data into meaningful business insights that can help a **Category Manager** prepare for a quarterly supplier review.
+
+The analysis focuses on:
+
+- Category revenue movement
 - Product-level performance
-- Revenue concentration
-- Discount and transaction-value patterns
-- Monthly and day-of-week trends
-- Locations and products suitable for controlled business tests
-- Data required for stronger profitability decisions
+- Discount effectiveness
+- Day-of-week sales patterns
+- Monthly sales patterns
+- Category-level recommendation
+- Actions for the supplier review
 
-## Business Problem
+The project follows a business-first EDA approach rather than simply generating charts.
 
-A regional retail chain operates 12 stores across 6 cities in Andhra Pradesh and sells products across five categories:
+The goal is to answer:
 
-- Electronics
-- Apparel
-- Grocery
-- Home & Kitchen
-- Personal Care
+> **Which categories and products are performing well, which are losing momentum, and where should the Category Manager focus attention?**
 
-The Category Manager needs evidence to understand:
+---
 
-1. Which categories are performing well?
-2. Which categories require attention?
-3. Which products are contributing strongly to revenue?
-4. How are categories changing over time?
-5. How are discounts associated with transaction revenue?
-6. Where should promotion or discount tests be considered?
-7. What additional data is needed before making profitability decisions?
+# 🏢 Business Context
 
-## Objective
+The business is a regional retail chain operating across **Andhra Pradesh**.
 
-The objective is to provide an evidence-based view of category and product performance that can support supplier discussions, category reviews, promotion testing, and business planning.
+The chain operates:
 
-## Dataset
-
-The analysis uses six months of retail transaction data covering:
-
-- **107,836 transactions**
-- **25 products**
-- **5 categories**
 - **12 stores**
 - **6 cities**
-- **January 2026 to June 2026**
-- **₹459.8M observed post-discount revenue**
+- **5 product categories**
+- **25 products**
+- **107,836 transactions**
+- **6 months of transaction data**
 
-The original dataset contains 10 fields and no missing values.
+The Category Manager is preparing for a **quarterly supplier review**.
 
-## Dataset Fields
+Before the meeting, the manager needs to understand:
 
-| Field | Description |
-|---|---|
-| `transaction_id` | Unique transaction identifier |
-| `date` | Transaction date |
-| `store_id` | Store identifier |
-| `store_city` | City of the store |
-| `category` | Product category |
-| `product_name` | Product name |
-| `units_sold` | Number of units sold |
-| `unit_price` | Price per unit |
-| `revenue` | Revenue generated from the transaction |
-| `discount_pct` | Discount percentage |
+1. Which categories are growing?
+2. Which categories are declining?
+3. Which products are driving each category?
+4. Which products are weaker within their categories?
+5. Whether deeper discounts are associated with stronger transaction performance?
+6. Which days and months show stronger sales performance?
+7. What category should receive focused attention?
+8. What additional information is needed before making a larger investment decision?
 
-## Key Findings
+---
 
-### Category Performance
+# ❗ Problem Statement
 
-| Category | January → June |
-|---|---:|
-| Apparel | +34.1% |
-| Personal Care | +2.2% |
-| Grocery | -3.6% |
-| Home & Kitchen | -18.5% |
-| Electronics | -35.0% |
+A large volume of transaction data is available, but raw transaction records alone do not provide a clear business direction.
 
-### Revenue Concentration
+The Category Manager needs a concise view of:
 
-Electronics represents **49.3% of observed revenue**.
+- Category momentum
+- Product performance
+- Discount patterns
+- Sales timing
+- Business priorities
 
-Despite being the largest revenue category, Electronics declined by **35.0%** from January to June.
+Without structured analysis, it becomes difficult to identify which categories require attention before the supplier review.
 
-### Apparel
+Therefore, the project converts transaction-level data into category-level and product-level business insights.
 
-Apparel increased by **34.1%** from January to June.
+---
 
-The growth is broad across products rather than being dependent on a single product.
+# 🎯 Business Objective
 
-### Electronics
+The primary objective is:
 
-All five Electronics products declined from January to June:
+> **To analyze six months of retail transaction data and identify category and product performance patterns that can support the Category Manager during the quarterly supplier review.**
 
-| Product | Change |
-|---|---:|
-| Headphones | -20.3% |
-| Laptop | -30.7% |
-| Mobile Phone | -57.1% |
-| Smart TV | -21.9% |
-| Tablet | -41.0% |
+The analysis specifically aims to:
 
-Mobile Phone recorded the largest decline at **57.1%**.
+### 1. Understand Category Momentum
 
-## Discount Analysis
+Identify which categories are growing or declining from January to June 2026.
 
-Average revenue per transaction across discount levels:
+### 2. Identify Product Leaders and Laggards
 
-| Discount | Average Revenue per Transaction |
-|---:|---:|
-| 0% | ₹4,685.65 |
-| 5% | ₹4,300.00 |
-| 10% | ₹4,010.00 |
-| 15% | ₹4,070.00 |
-| 20% | ₹3,631.73 |
+Find the highest- and lowest-revenue products within each category.
 
-Average units remained almost unchanged:
+### 3. Examine Discount Effectiveness
 
-- 0% discount: **2.59 units**
-- 20% discount: **2.58 units**
+Compare average revenue per transaction across different discount brackets.
 
-The discount analysis is observational. It shows an association between discount levels and transaction revenue, but it does not establish that discounts caused the change.
+### 4. Understand Sales Timing
 
-## Time-Based Findings
+Analyze average revenue per transaction by day of week and total revenue by month.
 
-### Day of Week
+### 5. Provide One Clear Recommendation
 
-Saturday recorded the highest average transaction revenue:
+Convert the analysis into one category-level recommendation supported by the observed data.
 
-**₹4,420.02**
+---
 
-### Month
+# 🧩 CBIM Problem Canvas
 
-January recorded the highest total revenue:
+The business problem was defined using the **CBIM Problem Canvas** before starting the analysis.
 
-**₹84.77M**
+## Situation
 
-## Location-Level Findings
+A regional retail chain has 12 stores across 6 cities and is preparing for a quarterly supplier review. The Category Manager has six months of sales data across five product categories.
 
-### Tirupati — Apparel
+## Complication
 
-Tirupati recorded **58.5% Apparel growth**, making it a useful location for a controlled Apparel promotion test.
+The manager needs to quickly understand which categories and products are performing well, which are losing momentum, and where attention is needed.
 
-### Guntur — Electronics
+## Question
 
-Guntur recorded a **44.9% Electronics decline**, making it a useful location for a targeted Electronics test.
+Which categories and products are performing well or declining, and where should the Category Manager focus attention?
 
-## Business Recommendations
+## SSOT — Single Source of Truth
 
-### Apparel
+The six-month retail transaction dataset covering:
 
-Use Apparel as a potential controlled growth-investment case because of its **34.1% January-to-June growth** and broad product participation.
+**January 2026 → June 2026**
 
-### Electronics
+## Success Definition
 
-Review Electronics through a supplier recovery discussion because of its **35.0% decline**, large **49.3% revenue share**, and decline across all five products.
+The analysis should provide clear evidence about category and product performance and lead to one clear category-level recommendation for the supplier review.
 
-### Home & Kitchen
+## Primary Stakeholder
 
-Review product-level performance because the category declined by **18.5%**.
+**Category Manager**
 
-### Grocery and Personal Care
+The Category Manager needs clear priorities and evidence to support the quarterly supplier discussion.
 
-Continue regular monitoring because their changes were smaller:
+---
 
-- Grocery: **-3.6%**
-- Personal Care: **+2.2%**
+# ❓ Key Business Questions
 
-### Promotions and Discounts
+The analysis is structured around five major questions.
 
-Use targeted testing rather than assuming that deeper discounts automatically create stronger demand.
+### Question 1 — Category Momentum
 
-A suitable approach is:
+> Which product categories are growing or declining month-on-month?
 
-**Test → Measure → Learn → Scale**
+### Question 2 — Product Performance
 
-## Suggested Controlled Tests
+> Which products are leading or lagging within each category?
 
-### Apparel Promotion Test
+### Question 3 — Discount Effectiveness
 
-- **Location:** Tirupati
-- **Category:** Apparel
-- **Initial timing:** Saturday
+> Do deeper discounts correspond with stronger transaction performance?
 
-The purpose is to measure incremental revenue rather than simply total sales.
+### Question 4 — Sales Timing
 
-### Electronics Discount Test
+> When does the retail chain perform best across days and months?
 
-- **Location:** Guntur
-- **Category:** Electronics
-- **Product:** Smart TV
-- **Initial timing:** Tuesday / weaker-demand window
+### Question 5 — Category Decision
 
-Margin and inventory information should be reviewed before applying deep discounts.
+> What single category-level recommendation should follow from the evidence?
 
-## Limitations
+---
 
-The dataset does not include:
+# 📊 Dataset Overview
 
-- Product cost
-- Gross margin
-- Inventory levels
-- Stockout history
-- Promotion campaign identifiers
-- Promotion exposure
-- Promotion funding
+The project uses the simulated retail transaction dataset:
 
-Because cost and margin data are unavailable, the analysis does not determine profitability.
-
-Because discount data is observational, the analysis does not establish causal impact.
-
-## Additional Data Required
-
-For stronger business decisions, the following data would be useful:
-
-- Product cost
-- Gross margin
-- Inventory levels
-- Stockout history
-- Promotion exposure
-- Campaign identifiers
-- Promotion funding
-
-## Business Decision Framework
-
-The project follows a simple decision framework:
-
-**Invest where positive momentum exists.**
-
-**Challenge material declines.**
-
-**Test before scaling.**
-
-**Measure incremental impact.**
-
-**Check profitability before making larger decisions.**
-
-## Team
-
-| Team Member | Role |
-|---|---|
-| Thulasi Reddy | Business Analyst & Recommendations |
-| Pratik Pattewar | Data Visualization & Insights |
-| Dhanesh | Data Analyst & EDA |
-
-## Project Information
-
-**Project:** Category Intelligence  
-**Use Case:** Retail Product Performance  
-**Analysis Type:** Exploratory Data Analysis  
-**Data Period:** January 2026 – June 2026  
-**Transactions:** 107,836  
-**Products:** 25  
-**Categories:** 5  
-**Stores:** 12  
-**Cities:** 6  
-**Region:** Andhra Pradesh
-```
+```text
+MUC01_Retail_Sales_Dataset.csv
